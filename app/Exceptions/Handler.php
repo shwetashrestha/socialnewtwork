@@ -46,7 +46,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return response()->json(['error'=>'Token not found'], 401); 
+         dd($exception);
+       
+        return response()->json(['error'=>$exception->getMessage()], 500); 
 
         // return parent::render($request, $exception);
     }
