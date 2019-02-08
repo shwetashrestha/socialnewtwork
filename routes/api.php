@@ -19,12 +19,29 @@ Route::group(['middleware' => 'auth:api'], function(){
     $this->get('users', 'UserController@index');
     $this->group(['prefix' => 'user'], function() {
         Route::get('/{user}', 'UserController@details');
-       // Route::delete('/{user}','UserController@destroy');
+        Route::delete('/{user}','UserController@destroy');
         Route::post('/{user}','UserController@sendfriendrequest');
         Route::get('/{user}','UserController@viewfriendrequest');        
         Route::post('/{user}','UserController@acceptfriendrequest');
         Route::delete('/{user}','UserController@rejectedfriendrequest');
 
     });
-    
+//post
+$this->get('posts','PostController@index');
+
+$this->group(['prefix' => 'post'], function() {
+    $this->post('/', 'PostController@store');
+    $this->post('/update/{posts}','PostController@update');  
+    $this->delete('/delete/{posts}','PostController@destroy');
+
+});
+//comment
+$this->get('comments','CommentController@index');
+
+$this->group(['prefix' => 'comment'], function() {
+    $this->post('/', 'CommentController@store');
+    $this->post('/update/{comments}','CommentController@update');  
+    $this->delete('/delete/{posts}','PostController@destroy');
+
+});
 });
